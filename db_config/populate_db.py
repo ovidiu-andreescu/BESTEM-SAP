@@ -6,11 +6,8 @@ from db_config.models import Transactions
 
 
 def populate():
-    sales_eod_pathDf = pd.read_excel(sales_eod_path)
-    transactionsDf = pd.read_excel(transactions)
+    sales_eod_path_df = pd.read_excel(sales_eod_path)
+    transactions_df = pd.read_excel(transactions)
 
-    sales_eod_pathDf.to_sql('sales_and_eod_stocks', engine, index=False, if_exists = 'replace')
-    transactionsDf.to_sql('sales_and_eod_stocks', engine, index=False, if_exists = 'replace')
-
-    session = Session()
-    print(session.query(Transactions).all())
+    sales_eod_path_df.to_sql('sales_and_eod_stocks', engine, index=False, if_exists = 'replace')
+    transactions_df.to_sql('transactions', engine, index=False, if_exists = 'replace')
