@@ -17,8 +17,17 @@ class Transactions(Base):
     Customer_ID = Column(Integer, ForeignKey('customers.Customer_ID'))
     Country = Column(String)
 
-    sales_and_eod = relationship('SalesAndEod', backref='transactions')
-    customer = relationship('Customers', back_populates='transactions')
+    # sales_and_eod = relationship('SalesAndEod', backref='transactions')
+    # customer = relationship('Customers', back_populates='transactions')
+
+class ProductCluster(Base):
+    __tablename__ = 'cluster'
+
+    cluster_id = Column(Integer, primary_key=True)
+    Product_ID = Column(String, ForeignKey('transactions.Product_ID'))
+    Customer_ID = Column(String)
+
+    # transaction = relationship("Transaction", back_populates="clusters")
 
 
 class SalesAndEod(Base):
@@ -38,4 +47,4 @@ class Customers(Base):
     Customer_ID = Column(Integer, primary_key=True)
     Email = Column(String)
 
-    transactions = relationship('Transactions', back_populates='customer')
+    # transactions = relationship('Transactions', back_populates='customer')

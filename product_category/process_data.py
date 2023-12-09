@@ -4,7 +4,7 @@ from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
 import numpy as np
 
-from db_config.config import Session
+from db_config.config import Session, engine
 from db_config.models import Transactions
 from transformers import DistilBertTokenizer, DistilBertModel
 
@@ -16,9 +16,9 @@ def data_for_clustering():
     session = Session()
     query = session.query(Transactions.Product_ID, Transactions.Description, Transactions.Customer_ID).all()
 
-    data_df = pd.DataFrame(query, columns=['Product_ID', 'Description', 'Customer_ID'])
+    df = pd.DataFrame(query, columns=['Product_ID', 'Description', 'Customer_ID'])
 
-    return data_df
+    return df
 
 
 def get_embeddings(description):
@@ -37,9 +37,9 @@ def tokenize():
     pca = PCA(n_components=50)
     reduced_embeddings = pca.fit_transform(embeddings)
 
-    k = 5
-    kmeans = KMeans(n_clusters=k)
-    df['cluster'] = kmeans.fit_predict(reduced_embeddings)
+    k = 10
+    kmeans = KMeans(n_clusters=k, n_init=10)
+    df['cluster_id'] = kmeans.fit_predict(reduced_embeddings)
 
-    print(df["cluster"])
-
+    df[['Product_ID', 'cluster_id', 'Customer_ID']].to_sql('cluster', engine, index=False, if_exists='replace')
+    df[['Product_ID', 'cluster_id', 'Customer_ID']].to_csv('clustered_products.csv', index=False)
