@@ -48,4 +48,9 @@ def predict_sales():
     print("Historical Anomalies:", historical_anomalies.index.tolist())
     print("Advance Alerts for Future Anomalies:", advance_alerts)
 
+    for date in historical_anomalies.index:
 
+        sales_value = df.loc[date, 'Sales']
+        if sales_value != 0:
+            print(
+                f"The stock should be optimized for {date.strftime('%Y-%m-%d')}. The supplier needs to provide {sales_value} units.")
