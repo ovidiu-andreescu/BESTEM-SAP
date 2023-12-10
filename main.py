@@ -13,6 +13,6 @@ def print_hi(name):
 if __name__ == '__main__':
     # populate()
     # tokenize()
-    # print(predict_sales())
-    print(recommend())
+    print(predict_sales())
+    # print(recommend())
 
