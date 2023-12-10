@@ -8,7 +8,7 @@ import numpy as np
 
 def predict_sales():
     session = Session()
-    data = pd.DataFrame(session.query(SalesAndEod.Date, SalesAndEod.Sales))
+    data = pd.DataFrame(session.query(SalesAndEod.Product_ID, SalesAndEod.Date, SalesAndEod.Sales))
 
     df = pd.DataFrame(data)
     df['Date'] = pd.to_datetime(df['Date'])
@@ -47,5 +47,3 @@ def predict_sales():
 
     print("Historical Anomalies:", historical_anomalies.index.tolist())
     print("Advance Alerts for Future Anomalies:", advance_alerts)
-
-

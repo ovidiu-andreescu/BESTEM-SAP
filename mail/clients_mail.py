@@ -11,7 +11,7 @@ def client_email(client_email, product_list):
     password = 'vwlv ldzt vsze rngg'
     receiver = client_email
 
-    subject = 'Oferteț'
+    subject = 'Oferte'
     body = get_response(product_list)
 
     em = EmailMessage()
