@@ -1,5 +1,6 @@
 from db_config.populate_db import populate
 from product_category.process_data import data_for_clustering, tokenize
+from timeseries.forecast import predict_sales
 
 
 def print_hi(name):
@@ -9,7 +10,7 @@ def print_hi(name):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    populate()
-    tokenize()
-
+    # populate()
+    # tokenize()
+    print(predict_sales())
 
