@@ -14,7 +14,7 @@ model = DistilBertModel.from_pretrained('distilbert-base-uncased')
 
 def data_for_clustering():
     session = Session()
-    query = session.query(Transactions.Product_ID, Transactions.Description, Transactions.Customer_ID).all()
+    query = session.query(Transactions.Product_ID, Transactions.Description, Transactions.Customer_ID).limit(12000).all()
 
     df = pd.DataFrame(query, columns=['Product_ID', 'Description', 'Customer_ID'])
 
