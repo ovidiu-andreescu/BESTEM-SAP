@@ -7,35 +7,44 @@ from db_config.config import Base
 class Transactions(Base):
     __tablename__ = 'transactions'
 
-    transaction_id = Column(Integer, primary_key=True)
-    invoice = Column(Integer)
-    product_id = Column(String, ForeignKey('sales_and_eod_stocks.product_id'))
-    description = Column(String)
-    quantity = Column(Integer)
-    date = Column(DateTime)
-    price = Column(Float)
-    customer_id = Column(Integer, ForeignKey('customers.customer_id'))
-    country = Column(String)
+    Transaction_ID = Column(Integer, primary_key=True)
+    Invoice = Column(Integer)
+    Product_ID = Column(String, ForeignKey('sales_and_eod_stocks.Product_ID'))
+    Description = Column(String)
+    Quantity = Column(Integer)
+    Date = Column(DateTime)
+    Price = Column(Float)
+    Customer_ID = Column(Integer, ForeignKey('customers.Customer_ID'))
+    Country = Column(String)
 
-    sales_and_eod = relationship('SalesAndEod', backref='transactions')
-    customer = relationship('Customers', back_populates='transactions')
+    # sales_and_eod = relationship('SalesAndEod', backref='transactions')
+    # customer = relationship('Customers', back_populates='transactions')
+
+class ProductCluster(Base):
+    __tablename__ = 'cluster'
+
+    cluster_id = Column(Integer, primary_key=True)
+    Product_ID = Column(String, ForeignKey('transactions.Product_ID'))
+    Customer_ID = Column(String)
+
+    # transaction = relationship("Transaction", back_populates="clusters")
 
 
 class SalesAndEod(Base):
     __tablename__ = 'sales_and_eod_stocks'
 
-    product_id_number = Column(Integer, primary_key=True)
-    product_id = Column(String)
-    date = Column(DateTime)
-    sales = Column(Integer)
-    revenue = Column(Float)
-    end_of_day_stock = Column(Integer)
+    Product_ID_number = Column(Integer, primary_key=True)
+    Product_ID = Column(String)
+    Date = Column(DateTime)
+    Sales = Column(Integer)
+    Revenue = Column(Float)
+    EndOfDayStock = Column(Integer)
 
 
 class Customers(Base):
     __tablename__ = 'customers'
 
-    customer_id = Column(Integer, primary_key=True)
-    email = Column(String)
+    Customer_ID = Column(Integer, primary_key=True)
+    Email = Column(String)
 
-    transactions = relationship('Transactions', back_populates='customer')
+    # transactions = relationship('Transactions', back_populates='customer')
