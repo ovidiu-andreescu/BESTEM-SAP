@@ -8,7 +8,7 @@ import numpy as np
 
 def predict_sales():
     session = Session()
-    data = pd.DataFrame(session.query(SalesAndEod.Date, SalesAndEod.Sales))
+    data = pd.DataFrame(session.query(SalesAndEod.Product_ID, SalesAndEod.Date, SalesAndEod.Sales))
 
     df = pd.DataFrame(data)
     df['Date'] = pd.to_datetime(df['Date'])
@@ -48,9 +48,7 @@ def predict_sales():
     print("Historical Anomalies:", historical_anomalies.index.tolist())
     print("Advance Alerts for Future Anomalies:", advance_alerts)
 
-    for date in historical_anomalies.index:
-
-        sales_value = df.loc[date, 'Sales']
-        if sales_value != 0:
+    for (date, product_id), sales_value in historical_anomalies.iterrows():
+        if sales_value['Sales'] != 0:
             print(
-                f"The stock should be optimized for {date.strftime('%Y-%m-%d')}. The supplier needs to provide {sales_value} units.")
+                f"Anomaly detected for product {product_id} on {date.strftime('%Y-%m-%d')}: Sales = {sales_value['Sales']} units.")
