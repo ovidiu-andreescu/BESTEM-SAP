@@ -17,6 +17,7 @@ def hello_world():
 
 @app.route("/email/<client_id>")
 def send_email():
+    Session().query("Emails")
     return
 
 
