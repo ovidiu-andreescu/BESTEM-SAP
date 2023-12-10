@@ -47,8 +47,3 @@ def predict_sales():
 
     print("Historical Anomalies:", historical_anomalies.index.tolist())
     print("Advance Alerts for Future Anomalies:", advance_alerts)
-
-    for (date, product_id), sales_value in historical_anomalies.iterrows():
-        if sales_value['Sales'] != 0:
-            print(
-                f"Anomaly detected for product {product_id} on {date.strftime('%Y-%m-%d')}: Sales = {sales_value['Sales']} units.")
